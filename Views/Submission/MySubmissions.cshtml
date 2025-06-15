@@ -1,0 +1,44 @@
+﻿@model List<CGSpark.Data.Models.Submission>
+
+@{
+    ViewData["Title"] = "My Submission History";
+}
+
+<h2>My Submissions</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Type</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Submitted At</th>
+            <th>Reviewed At</th>
+            <th>Attachment</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Type</td>
+                <td>@item.Title</td>
+                <td>@item.Description</td>
+                <td>@item.Status</td>
+                <td>@item.SubmittedAt.ToString("yyyy-MM-dd")</td>
+                <td>@item.ReviewedAt?.ToString("yyyy-MM-dd") ?? "Pending"</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.FilePath))
+                    {
+                        <a href="@Url.Action("ViewCertificate", "Submission", new { filename = item.FilePath })" target="_blank">View</a>
+                    }
+                    else
+                    {
+                        <span>-</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

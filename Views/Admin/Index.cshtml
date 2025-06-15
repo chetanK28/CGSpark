@@ -1,0 +1,23 @@
+﻿@model List<User>
+<h2>Admin Role Assignment</h2>
+<table>
+    <tr><th>Name</th><th>Email</th><th>Role</th><th>Change Role</th></tr>
+    @foreach (var user in Model)
+    {
+        <tr>
+            <td>@user.Name</td>
+            <td>@user.Email</td>
+            <td>@user.Role</td>
+            <td>
+                <form asp-action="AssignRole" method="post">
+                    <input type="hidden" name="userId" value="@user.Id" />
+                    <select name="role">
+                        <option value="Employee" selected="@(user.Role=="Employee")">Employee</option>
+                        <option value="Admin" selected="@(user.Role=="Admin")">Admin</option>
+                    </select>
+                    <button type="submit">Update</button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>
